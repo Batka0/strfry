@@ -87,7 +87,9 @@ void RelayServer::runCron() {
 
                 if (levId == mostRecent) return true;
 
-                if (expiration == 1) { // Ephemeral event
+                if (expiration == 0) return true;
+
+                else if (expiration == 1) { // Ephemeral event
                     auto view = env.lookup_Event(txn, levId);
                     if (!view) throw herr("missing event from index, corrupt DB?");
                     uint64_t created = view->flat_nested()->created_at();
