@@ -48,7 +48,7 @@ std::string nostrJsonToFlat(const tao::json::value &v) {
         } else if (tagName == "expiration") {
             if (expiration == 0) {
                 expiration = parseUint64(tagVal);
-                if (expiration < 100) throw herr("invalid expiration");
+                if (expiration < 100 && expiration != 0) throw herr("invalid expiration");
             }
         } else if (tagName.size() == 1) {
             if (tagVal.size() > cfg().events__maxTagValSize) throw herr("tag val too large: ", tagVal.size());
